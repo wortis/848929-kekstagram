@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Латре](https://up.htmlacademy.ru/javascript/16/user/848929).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Степанов](https://htmlacademy.ru/profile/id359943).
 
 ---
 
