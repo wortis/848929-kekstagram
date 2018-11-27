@@ -1,11 +1,11 @@
 'use strict';
 
-var picturesSectionEl = document.querySelector('.pictures');
-var userPhotoTemplateEl = document.querySelector('#picture').content.querySelector('.picture');
+var container = document.querySelector('.pictures');
+var template = document.querySelector('#picture').content.querySelector('.picture');
 var fragment = document.createDocumentFragment();
 var bigPicture = document.querySelector('.big-picture');
 
-var photos = [];
+bigPicture.classList.toggle('hidden');
 
 var comments = [
   'Всё отлично!',
@@ -25,18 +25,15 @@ var description = [
   'Вот это тачка!'
 ];
 
-var getRandomInteger = function (min, max) {
+function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-var getRandomFromArray = function (array) {
-  if (!Array.isArray()) {
-    return null;
-  }
+function getRandomFromArray(array) {
   return array[Math.floor(Math.random() * (array.length))];
 };
 
-var getArrayPart = function (array, newLength) {
+function getArrayPart(array, newLength) {
   var helpArray = array.slice();
   var newArray = [];
   for (var i = 0; i < newLength; i++) {
@@ -48,7 +45,8 @@ var getArrayPart = function (array, newLength) {
   return newArray;
 };
 
-var generateCards = function (count) {
+var photos = [];
+function generateCards(count) {
   for (var i = 0; i < count; i++) {
     var card = {
       url: 'photos/' + (i + 1) + '.jpg',
@@ -58,10 +56,11 @@ var generateCards = function (count) {
     };
     photos.push(card);
   }
-};
+};//надо переделать. Отдельно объект и вывод функции
+generateCards(25);
 
-var createElement = function (item) {
-  var element = userPhotoTemplateEl.cloneNode(true);
+function createElement(item) {
+  var element = template.cloneNode(true);
 
   var image = element.querySelector('.picture__img');
   var likes = element.querySelector('.picture__likes');
@@ -74,8 +73,6 @@ var createElement = function (item) {
   return element;
 };
 
-generateCards(25);
-
 var fillPhotos = function (array) {
   for (var i = 0; i < array.length; i++) {
     fragment.appendChild(createElement(array[i]));
@@ -83,9 +80,9 @@ var fillPhotos = function (array) {
 };
 
 fillPhotos(photos);
-picturesSectionEl.appendChild(fragment);
+container.appendChild(fragment);
 
-var createComment = function (commentText) {
+function createComment(commentText) {
   var listItem = document.createElement('li');
   listItem.classList.add('social__comment');
 
@@ -105,7 +102,7 @@ var createComment = function (commentText) {
   fragment.appendChild(listItem);
 };
 
-var pushInfo = function (item) {
+function pushInfo(item) {
   var image = bigPicture.querySelector('.big-picture__img img');
   var likes = bigPicture.querySelector('.likes-count');
   var commentsCount = bigPicture.querySelector('.comments-count');
@@ -135,4 +132,3 @@ var pushInfo = function (item) {
 };
 
 pushInfo(photos[0]);
-bigPicture.classList.remove('hidden');
