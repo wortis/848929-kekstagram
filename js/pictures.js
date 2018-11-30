@@ -5,6 +5,11 @@ var template = document.querySelector('#picture').content.querySelector('.pictur
 var fragment = document.createDocumentFragment();
 var bigPicture = document.querySelector('.big-picture');
 
+var photos = [];
+generateCards(25);
+fillPhotos(photos);
+pushInfo(photos[0]);
+container.appendChild(fragment);
 bigPicture.classList.toggle('hidden');
 
 var comments = [
@@ -26,12 +31,12 @@ var description = [
 ];
 
 function getRandomInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+  return Math.floor(min + Math.random() * (max + 1 - min));
+}
 
 function getRandomFromArray(array) {
   return array[Math.floor(Math.random() * (array.length))];
-};
+}
 
 function getArrayPart(array, newLength) {
   var helpArray = array.slice();
@@ -43,22 +48,24 @@ function getArrayPart(array, newLength) {
     newArray.push(randomElem);
   }
   return newArray;
-};
+}
 
-var photos = [];
 function generateCards(count) {
+  var card = {
+    url: '',
+    likes: 0,
+    comments: '',
+    description: ''
+  }
   for (var i = 0; i < count; i++) {
-    var card = {
-      url: 'photos/' + (i + 1) + '.jpg',
-      likes: getRandomInteger(15, 200),
-      comments: getArrayPart(comments, getRandomInteger(1, 2)),
-      description: getRandomFromArray(description)
+    card.url = 'photos/' + (i + 1) + '.jpg';
+    card.likes = getRandomInteger(15, 200);
+    card.comments = getArrayPart(comments, getRandomInteger(1, 2));
+    card.description = getRandomFromArray(description);
     };
     photos.push(card);
-  }
-};//надо переделать. Отдельно объект и вывод функции
-generateCards(25);
 
+};
 function createElement(item) {
   var element = template.cloneNode(true);
 
@@ -71,16 +78,14 @@ function createElement(item) {
   commentsCount.textContent = item.comments.length;
 
   return element;
-};
+}
 
-var fillPhotos = function (array) {
+function fillPhotos(array) {
   for (var i = 0; i < array.length; i++) {
     fragment.appendChild(createElement(array[i]));
   }
 };
 
-fillPhotos(photos);
-container.appendChild(fragment);
 
 function createComment(commentText) {
   var listItem = document.createElement('li');
@@ -100,7 +105,7 @@ function createComment(commentText) {
   listItem.appendChild(text);
 
   fragment.appendChild(listItem);
-};
+}
 
 function pushInfo(item) {
   var image = bigPicture.querySelector('.big-picture__img img');
@@ -129,6 +134,4 @@ function pushInfo(item) {
   }
 
   commentsBlock.appendChild(fragment);
-};
-
-pushInfo(photos[0]);
+}
