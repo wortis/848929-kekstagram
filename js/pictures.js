@@ -33,15 +33,15 @@ container.appendChild(fragment);
 pushInfo(photos[0]);
 bigPicture.classList.toggle('hidden');
 
-function getRandomInteger (min, max) {
-  return Math.floor( min + Math.random() * (max - min) );
-};
+function getRandomInteger(min, max) {
+  return Math.floor(min + Math.random() * (max - min));
+}
 
-function getRandomFromArray (array) {
+function getRandomFromArray(array) {
   return array[Math.floor(Math.random() * (array.length))];
-};
+}
 
-function getArrayPart (array, newLength) {
+function getArrayPart(array, newLength) {
   var helpArray = array.slice();
   var newArray = [];
   for (var i = 0; i < newLength; i++) {
@@ -51,29 +51,29 @@ function getArrayPart (array, newLength) {
     newArray.push(randomElem);
   }
   return newArray;
-};
+}
 
 function generateCards(count) {
-  
-  
+
   for (var i = 1; i < count; i++) {
-    
+
     var card = {
-    url: '',
-    likes: 0,
-    comments: '',
-    description: ''
-  };
+      url: '',
+      likes: 0,
+      comments: '',
+      description: ''
+    };
+
     card.url = 'photos/' + i + '.jpg';
     card.likes = getRandomInteger(15, 200);
     card.comments = getArrayPart(comments, getRandomInteger(1, 2));
     card.description = getRandomFromArray(description);
     photos.push(card);
-    };
+  }
 
-};
+}
 
-function createElement (item) {
+function createElement(item) {
   var element = template.cloneNode(true);
 
   var image = element.querySelector('.picture__img');
@@ -84,24 +84,16 @@ function createElement (item) {
   likes.textContent = item.likes;
   commentsCount.textContent = item.comments.length;
 
-  element.addEventListener('click', function (evt) {
-    var currentPhoto = evt.target;
-    var currentSrc = currentPhoto.getAttribute('src');
-    var currentObject = findCurrentObject(currentSrc);
-    pushInfo(currentObject);
-    showPopup(bigPicture);
-  });
-
   return element;
-};
+}
 
-function fillPhotos (array) {
+function fillPhotos(array) {
   for (var i = 0; i < array.length; i++) {
     fragment.appendChild(createElement(array[i]));
   }
-};
+}
 
-function createComment (commentText) {
+function createComment(commentText) {
   var listItem = document.createElement('li');
   listItem.classList.add('social__comment');
 
@@ -119,9 +111,9 @@ function createComment (commentText) {
   listItem.appendChild(text);
 
   fragment.appendChild(listItem);
-};
+}
 
-function pushInfo (item) {
+function pushInfo(item) {
   var image = bigPicture.querySelector('.big-picture__img img');
   var likes = bigPicture.querySelector('.likes-count');
   var commentsCount = bigPicture.querySelector('.comments-count');
@@ -148,4 +140,4 @@ function pushInfo (item) {
   }
 
   commentsBlock.appendChild(fragment);
-};
+}
