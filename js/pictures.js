@@ -23,9 +23,7 @@ var description = [
   'Вот это тачка!'
 ];
 
-var photos = [];
-
-generateCards(25);
+var photos = generateCards(25);
 
 fillPhotos(photos);
 container.appendChild(fragment);
@@ -55,21 +53,18 @@ function getArrayPart(array, newLength) {
 
 function generateCards(count) {
 
-  for (var i = 1; i < count; i++) {
+  var pictArr = new Array(count);
 
-    var card = {
-      url: '',
-      likes: 0,
-      comments: '',
-      description: ''
+  for (var i = 0; i < count; i++) {
+    pictArr[i] = {
+      url: 'photos/' + (i + 1) + '.jpg',
+      likes: getRandomInteger(15, 200),
+      comments: getArrayPart(comments, getRandomInteger(1, 2)),
+      description: getRandomFromArray(description)
     };
 
-    card.url = 'photos/' + i + '.jpg';
-    card.likes = getRandomInteger(15, 200);
-    card.comments = getArrayPart(comments, getRandomInteger(1, 2));
-    card.description = getRandomFromArray(description);
-    photos.push(card);
   }
+  return pictArr;
 
 }
 
