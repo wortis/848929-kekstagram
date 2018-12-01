@@ -35,10 +35,6 @@ function getRandomInteger(min, max) {
   return Math.floor(min + Math.random() * (max - min));
 }
 
-function getRandomFromArray(array) {
-  return array[Math.floor(Math.random() * (array.length))];
-}
-
 function getArrayPart(array, newLength) {
   var helpArray = array.slice();
   var newArray = [];
@@ -60,7 +56,7 @@ function generateCards(count) {
       url: 'photos/' + (i + 1) + '.jpg',
       likes: getRandomInteger(15, 200),
       comments: getArrayPart(comments, getRandomInteger(1, 2)),
-      description: getRandomFromArray(description)
+      description: getRandomInteger(0, description.length - 1)
     };
 
   }
